@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Category List</h1>
+
+    <form method="get" action="{{ path('app_crud_categorie') }}">
+        <input type="text" name="CategorieName" placeholder="Search by name" value="{{ app.request.get('CategorieName') }}">
+        <button type="submit">Search</button>
+    </form>
+
+    {% if categories is not empty %}
+        <ul>
+            {% for categorie in categories %}
+                <li>
+                    {{ categorie.nom }}
+                    <a href="{{ path('app_edit_categorie', {id: categorie.id}) }}">Edit</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No Categories found.</p>
+    {% endif %}
+
+    <a href="{{ path('app_new_categorie') }}">Create new Category</a>
+{% endblock %}
